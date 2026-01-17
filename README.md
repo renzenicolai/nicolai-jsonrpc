@@ -27,6 +27,8 @@ Add the following snippet to the `server` section of your Nginx configuration:
 
 ```
   location /api/ {
+      # dont forget to strip /api from the front, since the backend doesnt expect that.
+      rewrite ^/api/(.*)$ /$1 break;
       proxy_pass http://127.0.0.1:8000;
       proxy_http_version 1.1;
       proxy_set_header Upgrade $http_upgrade;
